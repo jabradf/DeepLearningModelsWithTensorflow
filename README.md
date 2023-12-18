@@ -1,2 +1,2 @@
-# DeepLearningModelsWithTensorflow
-Deep Learning course material from Codecademy
+# Deep Learning Models With Tensorflow
+This repository contains completed materials and projects from the Codecademy skill path.
