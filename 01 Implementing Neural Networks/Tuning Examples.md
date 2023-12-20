@@ -119,6 +119,34 @@ For this model, we get the learning curve below:
 ![Figure 2](./img/with_dropout.png)
 The validation MAE we get with the dropout is lower than without it. Note that the validation error is also lower than the training error in this case. One of the explanations might be that the dropout is used only during training, and the full network is used during the validation/testing with layers’ output scaled down by the dropout rate.
 
+## More Tuning
+Once we have split our dataset, it’s time to choose our loss function, and our layers.
+
+For each layer, we also need to select a reasonable number of hidden units. There is no absolute science to choosing the right size for each layer, nor the number of layers — it all depends on your specific data and architecture.
+
+It’s good practice to start with a few layers (2-6).
+Usually, we create each layer with between 32 and 512 hidden units.
+We also tend to decrease the size of hidden layers as we move upwards - through the model.
+We usually try SGD and Adam optimizers first.
+When setting an initial learning rate, a common practice is to default to 0.01.
+
+## Hyperparameter Tuning
+We will almost always need to iterate upon our initial hyperparameters. When training and evaluating our model, we explore different learning rates, batch sizes, architectures, and regularization techniques.
+
+As we tune our parameters, we should watch our loss and metrics, and be on the lookout for clues as to why our model is struggling.:
+
+* Unstable learning means that we likely need to reduce our learning rate and or/increase our batch size.
+* A disparity between performance on the training and evaluation sets means we are overfitting, and should reduce the size of our model, or add regularization (like dropout).
+* Poor performance on both the training and the test set means that we are underfitting, and may need a larger model or a different learning rate.
+
+A common practice is to start with a smaller model and scale up our hyperparameters until we do see training and validation performance diverge, which means we have overfit to our data.
+
+Critically, because neural network weights are randomly initialized, your scores will fluctuate, regardless of hyperparameters. One way to make accurate judgments is to run the same hyperparameter configuration multiple times, with different random seeds.
+
+Once our results are satisfactory, we are ready to use our model!
+
+If we made a holdout test set, separate from our validation data, now is when we use it to test out our model. The holdout test set provides a final guarantee of our model’s performance on unseen data.
+
 ## Baseline Performance
 Why do we need a baseline? For example, we have data consisting of 90% dog images, and 10% cat images. An algorithm that predicts the majority class for each data point, will have 90% accuracy on this dataset! That might sound good, but predicting the majority class is hardly a useful classifier. We need to perform better.
 
